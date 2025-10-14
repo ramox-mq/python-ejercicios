@@ -87,10 +87,20 @@ while True:
     opcion=menu_opciones()
     if opcion==1:
         lista=cargar_lista()
+    if len(lista)==0:
+        print('La lista está vacía, no se puede realizar esta acción')
+        print('Debe cargar la lista para realizar esta acción')
+        break
     elif opcion==2:
         mostrar_numeros(lista)
     elif opcion==3:
         orden_numeros(lista)
+    elif opcion==4:
+        mayores_promedio(lista)
+    elif opcion==5:
+        minimo_ingresado(lista)
+    elif opcion==6:
+        valores_primos(lista)
     elif opcion==7:
         break
     input('Presione enter para continuar...')
