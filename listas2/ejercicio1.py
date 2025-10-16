@@ -79,6 +79,8 @@ while True:
     opcion=menu_opciones()
     if opcion==1:
         lista_ternas=generar_ternas()
+    elif len(lista_ternas) == 0 and opcion in (2, 3, 4, 5):
+        print('Lista vacía, por favor cárguela antes de realizar esta operación.')
     elif opcion==2:
         mostrar_lista(lista_ternas)
     elif opcion==3:
