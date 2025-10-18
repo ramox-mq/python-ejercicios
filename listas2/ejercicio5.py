@@ -12,7 +12,7 @@
 import random
 
 def menu_opciones():
-    print('Concurso de pesca')
+    print('1. bienvenida')
     print('2. Cargar las listas con una cantidad n de participantes.')
     print('3. Mostrar el promedio de peces capturados.')
     print('4. Mostrar la mayor cantidad de peces capturados y el nombre del ganador (pueden haber empates).')
@@ -22,6 +22,9 @@ def menu_opciones():
     while eleccion not in (1, 2, 3, 4, 5, 6):
         eleccion=int(input('Elegir 1, 2, 3, 4, 5, 6: '))
     return eleccion
+
+def bienvenida():
+    print('Concurso de peces!!!')
 
 def cargar_lista_participantes():
     participantes=[]
@@ -44,16 +47,48 @@ def promedio_peces(peces):
 
 def ganador(participantes, peces):
     mayor=peces[0]
-    participante=participantes[0]
     for i in range(len(participantes)):
         if peces[i] > mayor:
             mayor=peces[i]
-            participante=participantes[i]
-    return participante, mayor
 
+    ganadores=[]
 
-participantes, cantidad_peces_participantes=cargar_lista_participantes()
-print(participantes, cantidad_peces_participantes)
-print(promedio_peces(cantidad_peces_participantes))
-participante, peces=ganador(participantes, cantidad_peces_participantes)
-print(f'ganador/es {participante}, con {peces} peces')
+    for i in range(len(participantes)):
+        if peces[i]==mayor:
+            ganadores.append(participantes[i])
+    return ganadores, mayor
+
+def disminuir_peces_participante(participantes, peces):
+    for i, participante in enumerate(participantes):
+        print(i, participante)
+    reducir_peces=int(input('Elegir indice de participante a disminuir cantidad de peces: '))
+    cantidad=int(input('Cuantos peces quitar: '))
+    if peces[reducir_peces] - cantidad >= 0:
+        peces[reducir_peces] -= cantidad
+    else:
+        print('No puede tener cantidad negativa, no se realiza la resta')
+    print(peces)
+
+#PRINCIPAL
+participantes=[]
+peces=[]
+
+while True:
+    opcion=menu_opciones()
+    if opcion==1:
+        bienvenida()
+    elif opcion==2:
+        participantes, peces=cargar_lista_participantes()
+        print(f'participantes: {participantes} \npeces: {peces}')
+    elif opcion==3:
+        promedio=promedio_peces(peces)
+        print(f'Promedio de peces: {promedio}')
+    elif opcion==4:
+        ganadores, mayor=ganador(participantes, peces)
+        print(f'ganador/es: {ganadores}, con {mayor} peces')
+    elif opcion==5:
+        disminuir_peces_participante(participantes, peces)
+    elif opcion==6:
+        print('Gracias por participar, adios...')
+        break
+    input('Presione enter para continuar...')
