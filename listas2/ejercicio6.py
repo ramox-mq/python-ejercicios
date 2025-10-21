@@ -38,12 +38,25 @@ def registrar_productos():
         input('Enter para continuar')
     print(codigos, descripciones, precios, stocks)
     mostrar_productos(codigos, descripciones, precios, stocks)
+    stock_menor(codigos, descripciones, precios, stocks)
+    incrementar_stock(codigos, descripciones, precios, stocks)
 
 def mostrar_productos(codigos, descripciones, precios, stocks):
     for i in range(len(codigos)):
-        print(f'producto {i+1}: {codigos[i]}, {descripciones[i]}, {precios[i]}, {stocks[i]}')
+        print(f'producto {i}: codigo: {codigos[i]}, descripcion: {descripciones[i]}, precio: {precios[i]}, stock: {stocks[i]}')
 
-def stock_menor(stock):
-    
+def stock_menor(codigos, descripciones, precios, stocks):
+    valor_dado=int(input('Valor dado: '))
+    for i in range(len(stocks)):
+        if stocks[i]<valor_dado:
+            print(f'producto {i}: codigo: {codigos[i]}, descripcion: {descripciones[i]}, precio: {precios[i]}, stock: {stocks[i]}')
+
+def incrementar_stock(codigos, descripciones, precios, stocks):
+    indice_producto=int(input('Codigo de producto a aumentar stock: '))
+    aumento=int(input('Cuanto quiere aumentar: '))
+    stocks[indice_producto] += aumento
+    mostrar_productos(codigos, descripciones, precios, stocks)
+
+
     
 registrar_productos()
