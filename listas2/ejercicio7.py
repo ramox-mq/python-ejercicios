@@ -84,9 +84,66 @@ def notas_mayor_promedio(nombre, legajo, nota):
     promedio=acumulador/len(nota)
     registros=list(zip(nombre, legajo, nota))
     registros.sort(key=lambda x: x[2], reverse=True)
+    print(f'promedio: {promedio}')
+    print('registros mayores al promedio: ')
     for nombre, legajo, nota in registros:
         if nota > promedio:
             print(f'nombre: {nombre}, legajo: {legajo}, nota: {nota}')
+        
+def nota_minima_maxima(nombre, legajo, nota):
+    max=nota[0]
+    min=nota[0]
+    alum_max=[]
+    alum_min=[]
+    for num in nota:
+        if num > max:
+            max=num
+        if num < min:
+            min=num
+    for i, num in enumerate(nota):
+        if num==max:
+            alum_max.append([nombre[i], legajo[i], nota[i]])
+        if num==min:
+            alum_min.append([nombre[i], legajo[i], nota[i]])
+    print(f'nota max: {max}, alumno/s con esa nota: {alum_max}')
+    print(f'nota min: {min}, alumno/s con esa nota: {alum_min}')
+
+def agregar_registro(nombre, legajo, nota):
+    nombre.append(str(input('Ingresar nombre nuevo estudiante: ').capitalize()))
+    nuevo_legajo=str(input('Ingrese nuevo legajo: ')).upper()
+    while validar_legajo(nuevo_legajo, legajo):
+        nuevo_legajo=str(input('Legajo invalido, ingrese nuevamente: '))
+    legajo.append(nuevo_legajo)
+    nueva_nota=float(input('Ingrese nueva nota: '))
+    while validar_nota(nueva_nota):
+        nueva_nota=float(input('Nota invalida, ingrese nuevamente: '))
+    nota.append(nueva_nota)
+      
+def nuevas_notas(nota):
+    for i in range(len(nota)):
+        nota[i]=float(input(f'Ingrese nueva nota para el registro: {i}'))
+    
+def modif_registro(nombre, legajo, nota):
+    buscar_legajo=str(input('Ingrese el legajo del estudiante a buscar: '))
+    for i in range(len(legajo)):
+        if legajo[i]==buscar_legajo:
+            nombre[i]=str(input('Nombre modificado: ').capitalize())
+            modif_nota=float(input('Ingrese nueva nota: '))
+            while validar_nota(modif_nota):
+                modif_nota=float(input('Nota invalida, ingrese nuevamente: '))
+            nota[i]=modif_nota
+            print('Estudiante modificado:')
+            print(f'nombre: {nombre[i]}, legajo: {legajo[i]}, nota: {nota[i]}')
+        if buscar_legajo not in legajo:
+            print('No se encontro alumno con ese legajo')
+            break
+
+def elim_restro(nombre, legajo, nota):
+
+    
+            
+
+
 
 #PRINCIPAL
 nombre=[]
@@ -101,6 +158,16 @@ while True:
         mostrar_listas(nombre, legajo, nota)
     elif opcion=='c':
         notas_mayor_promedio(nombre, legajo, nota)
+    elif opcion=='d':
+        nota_minima_maxima(nombre, legajo, nota)
+    elif opcion=='e':
+        agregar_registro(nombre, legajo, nota)
+    elif opcion=='f':
+        nuevas_notas(nota)
+    elif opcion=='g':
+        modif_registro(nombre, legajo, nota)
+    elif opcion=='h':
+        print('pronto...')
     elif opcion=='i':
         print('Hasta luego...')
         break

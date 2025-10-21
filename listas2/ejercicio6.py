@@ -72,6 +72,7 @@ def mayor_precio(codigos, descripciones, precios, stocks):
     for i in range(len(precios)):
         if precios[i] > mayor:
             mayor=precios[i]
+    for i in range(len(precios)):
         if precios[i]==mayor:
             print(f'mayor precio producto/s {i}: codigo: {codigos[i]}, descripcion: {descripciones[i]}, precio: {precios[i]}, stock: {stocks[i]}')
     
