@@ -11,12 +11,13 @@ def cargar_lista():
     for i in range(orden_matriz):
         fila = []
         for j in range(orden_matriz):
-            fila.append(random.randint(100, 200))
+            fila.append(random.randint(100,200))
         matriz.append(fila)
     print(matriz)
     maximo_columnas(matriz)
     minimo_filas(matriz)
     promedio_diagonal(matriz)
+    valores_repetidos(matriz)
 
 def maximo_columnas(matriz):
     lista_max_col=[]
@@ -26,7 +27,7 @@ def maximo_columnas(matriz):
             if max_col < matriz[fila][col]:
                 max_col=matriz[fila][col]
         lista_max_col.append(max_col)
-    #print(lista_max_col)
+    print(lista_max_col)
 
 def minimo_filas(matriz):
     lista_min_filas=[]
@@ -47,13 +48,13 @@ def promedio_diagonal(matriz):
     promedio=acumulador/len(matriz)
     print(promedio)
 
+def valores_repetidos(matriz):
+    lista_repetidos=[]
+    for filas in matriz:
+        for num in filas:
+            if filas.count(num) > 1 and num not in lista_repetidos:
+                lista_repetidos.append(num)
+    print(lista_repetidos)
+
+
 cargar_lista()
-
-
-"""[
-   0 [183, 145, 106, 171], 
-   1 [122, 104, 124, 126], 
-   2 [132, 190, 130, 156], 
-   3 [135, 125, 152, 147]
-       0    1     2    3
-]"""
