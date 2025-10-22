@@ -19,7 +19,7 @@
 import os
 
 def menu_opciones():
-    os.system('clear')
+    os.system('cls')
     print('a. Cargar 3 listas paralelas: nombre, legajo y nota')
     print('b. Mostrar los registros en el orden en que fueron ingresados u ordenados por nombre')
     print('c. Mostrar los registros cuyas notas superan al promedio ordenados de mayor a menor.')
@@ -121,30 +121,35 @@ def agregar_registro(nombre, legajo, nota):
       
 def nuevas_notas(nota):
     for i in range(len(nota)):
-        nota[i]=float(input(f'Ingrese nueva nota para el registro: {i}'))
+        nota[i]=float(input(f'Ingrese nueva nota para el registro {i}: '))
     
 def modif_registro(nombre, legajo, nota):
     buscar_legajo=str(input('Ingrese el legajo del estudiante a buscar: '))
-    for i in range(len(legajo)):
-        if legajo[i]==buscar_legajo:
-            nombre[i]=str(input('Nombre modificado: ').capitalize())
-            modif_nota=float(input('Ingrese nueva nota: '))
-            while validar_nota(modif_nota):
-                modif_nota=float(input('Nota invalida, ingrese nuevamente: '))
-            nota[i]=modif_nota
-            print('Estudiante modificado:')
-            print(f'nombre: {nombre[i]}, legajo: {legajo[i]}, nota: {nota[i]}')
-        if buscar_legajo not in legajo:
-            print('No se encontro alumno con ese legajo')
-            break
+    if buscar_legajo not in legajo:
+        print('No se encontro alumno con ese legajo')
+    else:
+        for i in range(len(legajo)):
+            if legajo[i]==buscar_legajo:
+                nombre[i]=str(input('Nombre modificado: ').capitalize())
+                modif_nota=float(input('Ingrese nueva nota: '))
+                while validar_nota(modif_nota):
+                    modif_nota=float(input('Nota invalida, ingrese nuevamente: '))
+                nota[i]=modif_nota
+                print('Estudiante modificado:')
+                print(f'nombre: {nombre[i]}, legajo: {legajo[i]}, nota: {nota[i]}')
 
-def elim_restro(nombre, legajo, nota):
-
+def elim_registro(nombre, legajo, nota):
+    buscar_legajo=str(input('Ingrese el legajo del estudiante a buscar: '))
+    if buscar_legajo not in legajo:
+        print('No se encontro al alumno...')
+    else:   
+        for i in range(len(legajo)):
+            if legajo[i]==buscar_legajo:
+                nombre.pop(i)
+                legajo.pop(i)
+                nota.pop(i)
+                print('Se eliminó al alumno')
     
-            
-
-
-
 #PRINCIPAL
 nombre=[]
 legajo=[]
@@ -154,6 +159,9 @@ while True:
     opcion=menu_opciones()
     if opcion=='a':
         nombre, legajo, nota=listas_paralelas()
+    if len(nombre)==0 and opcion in ('b', 'c', 'd', 'f', 'g', 'h'):
+        print('Debe cargar registros antes de realizar esta operación')
+        break
     elif opcion=='b':
         mostrar_listas(nombre, legajo, nota)
     elif opcion=='c':
@@ -167,7 +175,7 @@ while True:
     elif opcion=='g':
         modif_registro(nombre, legajo, nota)
     elif opcion=='h':
-        print('pronto...')
+        elim_registro(nombre, legajo, nota)
     elif opcion=='i':
         print('Hasta luego...')
         break
